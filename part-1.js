@@ -45,3 +45,27 @@ function printGameBoard(board) {
 
 });
 }
+
+function getRandomPosition(size) {
+    return{ 
+        row: Math.floor(Math.random() * size),
+        col: Math.floor(Math.random() * size)
+ }
+};
+function placeShips(board, size) {
+    let ship1, ship2;
+    do {
+        ship1 = getRandomPosition(size);
+        ship2 = getRandomPosition(size);
+    } while (ship1.row === ship2.row && ship1.col === ship2.col);   
+    board[ship1.row][ship1.col] = 'S';
+    board[ship2.row][ship2.col] = 'S';
+}
+
+process.stdin.on('keypress', function (ch, key) {
+    console.log('Starting the game...');
+    const gameBoard = createGameBoard(gridSize);
+    placeShips(gameBoard, gridSize);
+    printGameBoard(gameBoard);
+    process.stdin.pause();
+})
